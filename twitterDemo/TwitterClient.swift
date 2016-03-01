@@ -11,6 +11,7 @@ import BDBOAuth1Manager
 
 class TwitterClient: BDBOAuth1SessionManager {
     
+    
     static let sharedInstance = TwitterClient(baseURL: NSURL(string: "https://api.twitter.com")!, consumerKey: "1Bn4y7wLtaZLucbuVU1GtIJyF", consumerSecret: "wA9LlXySrpdKnAZ5do8I5PiDmpuZ54nORYSyctibmTzkK9UCQZ")
     
     var loginSuccess: (() -> ())?
@@ -20,7 +21,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     {
         loginSuccess = success
         loginFailure = failure
-        
         
         TwitterClient.sharedInstance.deauthorize()
         TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "twitterdemo://oauth"), scope: nil, success: {(requestToken: BDBOAuth1Credential!) -> Void in
@@ -35,12 +35,28 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     }
     
+    func logout()
+    {
+        User.currentUser = nil
+        deauthorize()
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(User.UserDidLogoutNotification, object: nil)
+        
+    }
+    
     func handleOpenUrl(url: NSURL)
     {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         
         fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential!) -> Void in
             
+            self.currentAccount( { (user: User) -> () in
+                User.currentUser = user
+                self.loginSuccess?()
+                
+                }, failure: { (error: NSError) ->() in
+                    self.loginFailure?(error)
+                })
             self.loginSuccess?()
             
             
@@ -52,7 +68,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func homeTimeline(success: ([Tweet]) -> (), failure: (NSError) -> ())
     {        
-            GET("1.1/account/home_timeline.json", parameters: nil, progress: nil, success: {(task: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            GET("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: {(task: NSURLSessionDataTask, response: AnyObject?) -> Void in
                 
             let dictionaries = response as! [NSDictionary]
             let tweets = Tweet.tweetsWithArray(dictionaries)
@@ -64,24 +80,31 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func login()
+    func currentAccount(success: (User) -> (), failure: (NSError) -> ())
     {
+//        GET("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task:NSURLSessionDataTask, response: AnyObject?) -> Void in
+//            let dictionaries = response as! [NSDictionary]
+//            
+//            let tweets = Tweet.tweetsWithArray(dictionaries)
+//            
+//            for tweet in tweets
+//            {
+//                print("\(tweet.text!)")
+//            }
+//            }, failure: { (task: NSURLSessionDataTask?, error: NSError) -> Void in
+//                
+//        })
         
-    }
-    
-    func currentAccount()
-    {
-        GET("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task:NSURLSessionDataTask, response: AnyObject?) -> Void in
-            let dictionaries = response as! [NSDictionary]
+        GET("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (NSURLSessionDataTask, response: AnyObject?) -> Void in
+            let dictionaries = response as! NSDictionary
+            let user = User(dictionary: dictionaries)
             
-            let tweets = Tweet.tweetsWithArray(dictionaries)
+            success(user)
             
-            for tweet in tweets
-            {
-                print("\(tweet.text!)")
-            }
             }, failure: { (task: NSURLSessionDataTask?, error: NSError) -> Void in
-                
+                print("error: \(error.localizedDescription)")
+                failure(error)
         })
-    }
+        
+}
 }

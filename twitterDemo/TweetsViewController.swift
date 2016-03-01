@@ -15,6 +15,7 @@ class TweetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //ERROR HERE
         TwitterClient.sharedInstance.homeTimeline({ (tweets: [Tweet]) -> () in
             self.tweets = tweets
             for tweet in tweets
@@ -23,7 +24,7 @@ class TweetsViewController: UIViewController {
             }
             }, failure: { (error: NSError) -> () in
                 print(error.localizedDescription)
-                print("Here?TVC")
+
         })
         
         
@@ -36,6 +37,11 @@ class TweetsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onLogoutButton(sender: AnyObject) {
+        User.currentUser = nil
+        TwitterClient.sharedInstance.logout()
+        
+    }
 
     /*
     // MARK: - Navigation
