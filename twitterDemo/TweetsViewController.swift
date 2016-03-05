@@ -7,17 +7,25 @@
 //
 
 import UIKit
+import AFNetworking
 
-class TweetsViewController: UIViewController {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+
+    @IBOutlet weak var tableView: UITableView!
 
     var tweets: [Tweet]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         //ERROR HERE
         TwitterClient.sharedInstance.homeTimeline({ (tweets: [Tweet]) -> () in
             self.tweets = tweets
+            self.tableView.reloadData()
             for tweet in tweets
             {
                 print(tweet.text)
@@ -27,9 +35,23 @@ class TweetsViewController: UIViewController {
 
         })
         
-        
-        
         // Do any additional setup after loading the view.
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tweets != nil {
+            return tweets!.count
+        } else {
+            return 0
+        }
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetsCell", forIndexPath: indexPath) as! TwitterCell
+        
+        cell.selectionStyle = .None
+        cell.tweet = tweets![indexPath.row]
+        
+        return cell
     }
 
     override func didReceiveMemoryWarning() {

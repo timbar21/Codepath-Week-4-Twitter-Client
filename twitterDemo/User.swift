@@ -9,12 +9,11 @@ import UIKit
 
 class User: NSObject {
     
-    var name: NSString?
-    var screenname: NSString?
-    var profileUrl: NSURL?
-    var tagline: NSString?
-    
-    var dictionary: NSDictionary?
+    var name: String?
+    var screenname: String?
+    var profileUrl: NSString?
+    var tagline: String?
+    var dictionary: NSDictionary
     
     init(dictionary: NSDictionary){
         self.dictionary = dictionary
@@ -22,11 +21,9 @@ class User: NSObject {
         name = dictionary["name"] as? String
         screenname = dictionary["screen_name"] as? String
         
-        let profileUrlString = dictionary["profile_image_url_https"] as? String
-        if let profileUrlString = profileUrlString {
-            profileUrl = NSURL(string: profileUrlString)
-        }
-        
+        profileUrl = dictionary["profile_image_url_https"] as? String
+//        profileUrl = dictionary["profile_image_url"] as? String
+
         tagline = dictionary["description"] as? String
     }
     
@@ -55,8 +52,15 @@ class User: NSObject {
             let defaults = NSUserDefaults.standardUserDefaults()
             
             if let user = user {
-                let data = try! NSJSONSerialization.dataWithJSONObject(user.dictionary!, options: [])
+                do{
+                let data = try NSJSONSerialization.dataWithJSONObject(user.dictionary, options: NSJSONWritingOptions())
+                
                 defaults.setObject(data, forKey: "currentUser")
+                }
+                catch {
+                    print("error parsing json")
+                    
+                }
             } else {
                 defaults.setObject(nil, forKey: "currentUser")
             }
