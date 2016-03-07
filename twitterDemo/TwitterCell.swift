@@ -21,6 +21,7 @@ class TwitterCell: UITableViewCell {
     @IBOutlet weak var retweetsLabel: UILabel!
     @IBOutlet weak var tweetLabel: UILabel!
     @IBOutlet weak var favoritesLabel: UILabel!
+    @IBOutlet weak var profileImageButton: UIButton!
     
     var tweet: Tweet! {
         didSet {
@@ -30,6 +31,7 @@ class TwitterCell: UITableViewCell {
             handleLabel.text = "@\(tweet.user!.screenname!)"
             tweetLabel.text = tweet.text
             profileImage.setImageWithURL(NSURL(string: tweet.user!.profileUrl! as String)!)
+            
             retweetsLabel.text = String(tweet.retweetCount!)
             favoritesLabel.text = String(tweet.favoriteCount!)
             timeLabel.text = tweet.timeSince
