@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
         tableView.dataSource = self
         tableView.delegate = self
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
@@ -35,6 +36,24 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 
         })
     }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tweets != nil {
+            return tweets!.count
+        } else {
+            return 0
+        }
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! ProfileTweetCell
+        //issue with TwitterCell
+        
+        cell.selectionStyle = .None
+        cell.tweet = tweets![indexPath.row]
+        
+        return cell
+    }
+    
         // Do any additional setup after loading the view.
     
     override func didReceiveMemoryWarning() {

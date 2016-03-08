@@ -10,7 +10,6 @@ import UIKit
 import AFNetworking
 
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
 
     @IBOutlet weak var tableView: UITableView!
 
