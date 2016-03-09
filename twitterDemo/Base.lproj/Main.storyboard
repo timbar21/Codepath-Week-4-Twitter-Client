@@ -196,13 +196,13 @@
                                 <rect key="frame" x="11" y="83" width="40" height="40"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qf-IO-1KR">
-                                <rect key="frame" x="59" y="84" width="42" height="21"/>
+                                <rect key="frame" x="59" y="84" width="179" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@handle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUf-iR-qfy">
-                                <rect key="frame" x="59" y="102" width="50" height="21"/>
+                                <rect key="frame" x="59" y="102" width="179" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.49411764705882355" green="0.49411764705882355" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -279,6 +279,14 @@
                         <barButtonItem key="rightBarButtonItem" title="Reply" id="D8W-KY-ftx"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="aZh-b1-0tQ" id="jDX-xS-Ryu"/>
+                        <outlet property="handleLabel" destination="VUf-iR-qfy" id="gVa-GM-w9K"/>
+                        <outlet property="nameLabel" destination="5qf-IO-1KR" id="OPo-pR-LX0"/>
+                        <outlet property="profileImage" destination="iSe-q9-HAR" id="2Vh-I3-LaN"/>
+                        <outlet property="timeLabel" destination="lN4-Ty-gkt" id="sVg-P6-shk"/>
+                        <outlet property="tweetLabel" destination="7dE-vY-Q84" id="gKZ-4v-4Yg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvp-JY-ZoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -300,13 +308,13 @@
                                 <rect key="frame" x="10" y="72" width="37" height="37"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7x9-T2-95c">
-                                <rect key="frame" x="55" y="72" width="42" height="21"/>
+                                <rect key="frame" x="55" y="72" width="111" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaN-Ha-scL">
-                                <rect key="frame" x="55" y="88" width="42" height="21"/>
+                                <rect key="frame" x="55" y="88" width="111" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.49411764705882355" green="0.49411764705882355" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -330,6 +338,9 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="handleLabel" destination="EaN-Ha-scL" id="jdH-8B-W1D"/>
+                        <outlet property="nameLabel" destination="7x9-T2-95c" id="eaY-v4-zX0"/>
+                        <outlet property="profileImage" destination="7rZ-YD-kWf" id="yrV-RX-AXi"/>
                         <outlet property="textField" destination="L7x-1S-9Xh" id="3uo-cn-3xG"/>
                     </connections>
                 </viewController>
@@ -580,6 +591,10 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="bannerImage" destination="SoZ-Ki-o43" id="eWm-w4-rNA"/>
+                        <outlet property="handleLabel" destination="dv2-Ee-1vo" id="MQR-Yb-6G6"/>
+                        <outlet property="nameLabel" destination="qAN-9p-Lj2" id="RLw-IP-38M"/>
+                        <outlet property="profileImage" destination="bLr-Fa-h3J" id="WkG-1M-GRK"/>
                         <outlet property="tableView" destination="u4L-gL-7uU" id="sUv-3E-Pg0"/>
                     </connections>
                 </viewController>

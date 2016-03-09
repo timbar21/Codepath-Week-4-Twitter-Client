@@ -11,13 +11,32 @@ import UIKit
 class NewTweetViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var textField: UITextView!
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var handleLabel: UILabel!
+    
+    var users: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textField.delegate = self
-
+        profileImage.setImageWithURL(NSURL(string: (User.currentUser!.profileUrl)! as String)!)
+        nameLabel.text = User.currentUser?.name
+        let handle = User.currentUser?.screenname!
+        handleLabel.text = "@\(handle!)"
+        
         // Do any additional setup after loading the view.
     }
+//    var tweet: Tweet! {
+//        didSet {
+//            
+////            nameLabel.text = tweet.user!.name
+//            
+////            handleLabel.text = "@\(tweet.user!.screenname!)"
+////            profileImage.setImageWithURL(NSURL(string: tweet.user!.profileUrl! as String)!)
+//            
+//        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
